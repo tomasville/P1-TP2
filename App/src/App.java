@@ -7,21 +7,24 @@ public class App {
         Materia materia1 = new Materia(1,"Programacion 1", "PROG1", 4, 1, profesor1);
         Materia materia2 = new Materia(2,"Matematica 1", "MAT1", 4, 10, profesor1);
 
-        Materia[] materias = {materia1, materia2};
-        
+       // Materia[] materias = {materia1, materia2}; Viejo
+        ListaEnlazada listaDeMaterias = new ListaEnlazada();
+        listaDeMaterias.agregarAlInicio(materia1);
+        listaDeMaterias.agregarAlInicio(materia2);
+
        
-        Estudiante estudiante1 = new Estudiante("Alex", "Lopez", 23, "44333222", "Programador Universitario", 8.5, materias);
-        Estudiante estudiante2 = new Estudiante("Maria", "Gomez", 22, "39994444", "Marketing Cultural", 9.0, materias);
-        Estudiante estudiante3 = new Estudiante("Abril", "Bidegain", 19, "48555444", "Bioingenieria", 8.0, materias);
+        Estudiante estudiante1 = new Estudiante("Alex", "Lopez", 23, "44333222", "Programador Universitario", 8.5, listaDeMaterias);
+        Estudiante estudiante2 = new Estudiante("Maria", "Gomez", 22, "39994444", "Marketing Cultural", 9.0, listaDeMaterias);
+        Estudiante estudiante3 = new Estudiante("Abril", "Bidegain", 19, "48555444", "Bioingenieria", 8.0, listaDeMaterias);
 
         Estudiante[] estudiantes = {estudiante1, estudiante2, estudiante3};
 
-        double sumaRecursiva = estudiante1.calcularPromedioRecursivo(materias, 0);
-        double promedioRecursivo = sumaRecursiva / materias.length;
-        double promedioIterativo = estudiante1.calcularPromedioIterativo();
+        double promedioRecursivo = estudiante1.calcularPromedioRecursivo();
+
+        //double promedioIterativo = estudiante1.calcularPromedioIterativo();
 
         System.out.println("\nPromedio (recursivo): " + promedioRecursivo);
-        System.out.println("\nPromedio (iterativo): " + promedioIterativo);
+        //System.out.println("\nPromedio (iterativo): " + promedioIterativo);
 
         uni.agregarMiembro(estudiante1);
         uni.agregarMiembro(estudiante2);

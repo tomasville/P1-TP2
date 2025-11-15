@@ -46,7 +46,7 @@ public class ListaEnlazada {
             return null;
         }
     }
-    public void agregarAlInicio(int valor) {
+    public void agregarAlInicio(Materia valor) {
         Nodo nuevoNodo = new Nodo(valor);
         if (this.inicio == null) {
             this.inicio = nuevoNodo;
