@@ -1,7 +1,7 @@
 public class Universidad {
     private String nombre;
     private String direccion;
-    private MiembroUniversidad[] miembros;
+    private ListaEnlazada miembros;
     private int cantidadMiembros;
     private int indice;
 
@@ -9,7 +9,7 @@ public class Universidad {
     public Universidad(String nombre, String direccion, int capacidadMaxima) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.miembros = new MiembroUniversidad[capacidadMaxima];
+        this.miembros = new ListaEnlazada();
         this.cantidadMiembros = 0;
         this.indice = 0;
     }
@@ -36,39 +36,43 @@ public class Universidad {
         this.direccion = direccion;
     }
 
-    public boolean agregarMiembro(MiembroUniversidad miembro){
-        if(cantidadMiembros < miembros.length){
-            miembros[cantidadMiembros] = miembro;
-            cantidadMiembros++;
-            return true;
-        }else {
-            System.out.println("No se pueden agregar mas miembros. Capacidad máxima alcanzada");
-            return false;
-        }
+    public boolean agregarMiembro(MiembroUniversidad miembro) {
+        miembros.agregarAlInicio(miembro);
+        cantidadMiembros++;
+        return true;
     }
 
     public void listarMiembros(){
-        System.out.println("Miembros de la Universdiad: "+ nombre + " :");
-        for(int i = 0; i < miembros.length; i++){
-            System.out.println("- "+ miembros[i].obtenerInformacionCompleta());
+        System.out.println("Miembros de la Universidad: " + nombre + " :");
+        Nodo actual = miembros.getInicio();
+        while (actual != null) {
+            MiembroUniversidad miembro = (MiembroUniversidad) actual.getDato();
+            System.out.println("- " + miembro.obtenerInformacionCompleta());
+            actual = actual.getSiguiente();
         }
     }
 
     public void listarEstudiantes(){
-        System.out.println("Estudiantes de la Universdiad: "+ nombre + " :");
-        for(int i = 0; i< cantidadMiembros; i++){
-            if(miembros[i] instanceof Estudiante){
-                System.out.println("- "+ miembros[i].obtenerInformacionCompleta());
+        System.out.println("Estudiantes de la Universidad: " + nombre + " :");
+        Nodo actual = miembros.getInicio();
+        while (actual != null) {
+            if (actual.getDato() instanceof Estudiante) {
+                MiembroUniversidad miembro = (MiembroUniversidad) actual.getDato();
+                System.out.println("- " + miembro.obtenerInformacionCompleta());
             }
+            actual = actual.getSiguiente();
         }
     }
 
     public void buscarPorRol(String rolBuscado) {
-        System.out.println("Buscando miembros con el rol de: "+ rolBuscado);
-        for(int i = 0; i< cantidadMiembros; i++){
-            if(miembros[i].obtenerRol().equalsIgnoreCase(rolBuscado)){
-                System.out.println(miembros[i].obtenerInformacionCompleta());
+        System.out.println("Buscando miembros con el rol de: " + rolBuscado);
+        Nodo actual = miembros.getInicio();
+        while (actual != null) {
+            MiembroUniversidad miembro = (MiembroUniversidad) actual.getDato();
+            if (miembro.obtenerRol().equalsIgnoreCase(rolBuscado)) {
+                System.out.println(miembro.obtenerInformacionCompleta());
             }
+            actual = actual.getSiguiente();
         }
     }
 
@@ -112,11 +116,13 @@ public class Universidad {
     }
 
     public Persona buscarPorDocumento(String documento){
-        for(int i = 0; i < miembros.length; i++){
-            Persona p = (Persona) miembros[i];
-            if(documento.equals(p.getDocumento())){
+        Nodo actual = miembros.getInicio();
+        while (actual != null) {
+            Persona p = (Persona) actual.getDato();
+            if (documento.equals(p.getDocumento())) {
                 return p;
             }
+            actual = actual.getSiguiente();
         }
         return null;
     }
@@ -142,6 +148,11 @@ public class Universidad {
         return contador;
     }
 
+    /*
+    // TODO: La ordenación de una lista enlazada es más compleja que la de un array.
+    // Este método de burbuja no funciona directamente. Se necesita un algoritmo
+    // de ordenación adaptado para listas enlazadas (como Merge Sort) o extraer
+    // los elementos a un array, ordenarlos y reconstruir la lista.
     public void ordenarEstudiantesPorApellido(){
         for(int i = 0; i < cantidadMiembros - 1; i++){
             for(int j = 0; j < cantidadMiembros - i - 1; j++){
@@ -156,6 +167,6 @@ public class Universidad {
             }
         }
     }
-
+    */
 
 }

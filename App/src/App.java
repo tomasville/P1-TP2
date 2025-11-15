@@ -40,7 +40,7 @@ public class App {
         uni.listarEstudiantes();
         
         System.out.println("\nOrdenando Estudiantes por Apellido...");
-        uni.ordenarEstudiantesPorApellido();
+        //uni.ordenarEstudiantesPorApellido();
         uni.listarEstudiantes();
 
 
