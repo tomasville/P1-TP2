@@ -1,9 +1,9 @@
 public class Estudiante extends Persona implements MiembroUniversidad{
-String carrera;
-double promedio;
-Materia[] materias;
+    String carrera;
+    double promedio;
+    ListaEnlazada materias;
 
-    public Estudiante(String nombre, String apellido, int edad, String documento, String carrera, double promedio, Materia materias []){
+    public Estudiante(String nombre, String apellido, int edad, String documento, String carrera, double promedio, ListaEnlazada materias){
         super(nombre, apellido, edad, documento);    
         this.carrera = carrera;
         this.promedio = promedio;
@@ -38,11 +38,11 @@ Materia[] materias;
         this.promedio = promedio;
     }
 
-    public Materia [] getMaterias(){
+    public ListaEnlazada getMaterias(){
         return materias;
     }
 
-    public void setMaterias(Materia[] materias){
+    public void setMaterias(ListaEnlazada materias){
         this.materias = materias;
     }
 
@@ -56,20 +56,14 @@ Materia[] materias;
         return toString();
     }
 
-    public static double calcularPromedioRecursivo(Materia[] materias,int indice){
-        //va a sumar las calificaciones de las materias hasta que no haya mas materias
-        //sale del if cuando las materias son nulas o no hay materias
-        if (materias == null || materias.length == 0){
-            return 0;
+    public static double calcularPromedioRecursivo(Nodo actual, int contador, double suma) {
+        if (actual == null) {
+            return contador == 0 ? 0 : suma / contador;
         }
-        //si el indice es igual a la ultima materia, devuelve la calificacion en ese indice
-        if(indice == materias.length -1){
-            return materias[indice].getCalificacion();
-        }
-        //retorna la suma de la calificacion actual mas la siguiente
-        return materias[indice].getCalificacion() +calcularPromedioRecursivo(materias, indice +1);
+        Materia materia = (Materia) actual.dato;
+        return calcularPromedioRecursivo(actual.siguiente, contador + 1, suma + materia.getNota());
     }
-
+    /* 
     public double calcularPromedioIterativo(){
         //
         //sale del if cuando las materias son nulas o no hay materias
@@ -83,7 +77,7 @@ Materia[] materias;
         }
         return suma / materias.length;
     }
-
+    */
     @Override
     public String toString(){
         return super.toString() + "- Carrera:"+ carrera + "- Promedio: "+ promedio;
