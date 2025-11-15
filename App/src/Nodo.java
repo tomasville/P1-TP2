@@ -1,5 +1,5 @@
 public class Nodo {
-    private int dato;
+    private Object dato;
     private Nodo siguiente;
 
     public Nodo(int dato) {
@@ -16,7 +16,7 @@ public class Nodo {
         this.dato = dato;
     }
 
-    public int getDato() {
+    public Object getDato() {
         return this.dato;
     }
 
