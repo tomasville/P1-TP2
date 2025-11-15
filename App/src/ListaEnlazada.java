@@ -34,17 +34,15 @@ public class ListaEnlazada {
         }
     }
 
-    public Nodo buscarNodo(int valor) {
-        Nodo actual;
-        actual = this.inicio;
-        while (actual.getDato() != valor && actual.getSiguiente() != null) {
+    public Nodo buscar(Object valor) {
+        Nodo actual = this.inicio;
+        while (actual != null) {
+            if (actual.getDato().equals(valor)) {
+                return actual;
+            }
             actual = actual.getSiguiente();
         }
-        if (actual.getDato() == valor) {
-            return actual;
-        } else {
-            return null;
-        }
+        return null;
     }
     public void agregarAlInicio(Materia valor) {
         Nodo nuevoNodo = new Nodo(valor);
@@ -73,18 +71,18 @@ public class ListaEnlazada {
     }
 
 
-    public void eliminarNodo(int valor) {
+    public void eliminarNodo(Object valor) {
         if (inicio == null) {
             return;
         }
 
-        if (inicio.getDato() == valor) {
+        if (inicio.getDato().equals(valor)) {
             inicio = inicio.getSiguiente();
             return;
         }
 
         Nodo actual = inicio;
-        while (actual.getSiguiente() != null && actual.getSiguiente().getDato() != valor) {
+        while (actual.getSiguiente() != null && !actual.getSiguiente().getDato().equals(valor)) {
             actual = actual.getSiguiente();
         }
 

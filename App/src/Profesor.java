@@ -2,14 +2,14 @@ public class Profesor extends Persona implements MiembroUniversidad{
     String especialidad;
     Materia materias[];
     int añosExperiencia;
-    int materiasAsignadas;
+    ListaEnlazada materiasAsignadas;
 
     public Profesor(String nombre, String apellido, int edad,String documento, String especialidad, int añosExperiencia, int maxMaterias){
         super(nombre, apellido, edad, documento);
         this.especialidad = especialidad;
         this.añosExperiencia = añosExperiencia;
         this.materias = new Materia[maxMaterias];
-        this.materiasAsignadas = 0;
+        this.materiasAsignadas = materiasAsignadas;
     }
 
     public String getEspecialidad(){
@@ -37,14 +37,13 @@ public class Profesor extends Persona implements MiembroUniversidad{
     }
 
      public boolean AsignarMateria(Materia materia){
-        if(materiasAsignadas < materias.length){
-            materias[materiasAsignadas] = materia;
-            materiasAsignadas++;
-            return true;
-        }else {
-            System.out.println("No se pueden agregar mas materias. limite alcanzado");
-            return false;
+        for(int i = 0; i < materias.length; i++){
+            if(materias[i] == null){
+                materias[i] = materia;
+                return true;
+            }
         }
+        return false;
     } 
 
     @Override
