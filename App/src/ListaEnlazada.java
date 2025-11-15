@@ -67,6 +67,12 @@ public class ListaEnlazada {
 
     }
 
+
+    public Nodo getInicio() {
+        return this.inicio;
+    }
+
+
     public void eliminarNodo(int valor) {
         if (inicio == null) {
             return;

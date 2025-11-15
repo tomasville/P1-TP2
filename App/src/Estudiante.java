@@ -60,8 +60,11 @@ public class Estudiante extends Persona implements MiembroUniversidad{
         if (actual == null) {
             return contador == 0 ? 0 : suma / contador;
         }
-        Materia materia = (Materia) actual.dato;
-        return calcularPromedioRecursivo(actual.siguiente, contador + 1, suma + materia.getNota());
+        Materia materia = (Materia) actual.getDato();
+        return calcularPromedioRecursivo(
+            actual.getSiguiente(),
+             contador + 1,
+              suma + materia.getCalificacion());
     }
     /* 
     public double calcularPromedioIterativo(){
